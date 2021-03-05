@@ -4,6 +4,7 @@ import "firebase/auth";
 const app = firebase.initializeApp({
   apiKey: "AIzaSyALjUv14BaVOKmAyzfWm8tSJc-sjGWu9WI",
   authDomain: "new-react-firebase-9857f.firebaseapp.com",
+  databaseURL: "https://new-react-firebase-9857f-default-rtdb.firebaseio.com",
   projectId: "new-react-firebase-9857f",
   storageBucket: "new-react-firebase-9857f.appspot.com",
   messagingSenderId: "954293621316",

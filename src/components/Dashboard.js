@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import Timezone from "./Timezone"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
@@ -26,6 +27,7 @@ export default function Dashboard() {
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
+          <Timezone />
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Update Profile
           </Link>

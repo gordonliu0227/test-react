@@ -11,7 +11,7 @@ export default function UpdateProfile() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  var pattern = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?\(\)]).*$/;
+  var pattern = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?()]).*$/;
 
   function handleSubmit(e) {
     e.preventDefault()
