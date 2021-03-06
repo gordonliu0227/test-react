@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import googleSignInPopup from './google-signin'
+import GoogleLogin from './google-signin'
 
 export default function Login() {
   const emailRef = useRef()
@@ -43,9 +43,14 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
+        
             <Button disabled={loading} className="w-100" type="submit">
               Log In
             </Button>
+            <p>or</p>
+            <GoogleLogin />
+
+           
             
 
           </Form>
@@ -57,7 +62,9 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
-      <button onClick ={googleSignInPopup}>使用Google账号登录</button>
+      
+      
+      
 
     </>
   )
