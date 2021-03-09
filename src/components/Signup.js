@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import firebase, { googleProvider } from "../firebase";
+import displayName from "../db"
 
 import Timezone from "./Timezone";
 
@@ -13,7 +15,6 @@ export default function Signup() {
   const timezoneConRef = useRef();
 
   const { signup } = useAuth();
-  const { doCreateUser } = useAuth();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +37,10 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value, timezoneConRef.current.value)
+      await signup(emailRef.current.value, passwordRef.current.value)
+      displayName(timezoneConRef.current.value)
+      
+      console.log(firebase.auth().currentUser.uid);
       
 
       history.push("/");

@@ -31,6 +31,7 @@ class Timezone extends React.Component {
 
   handleTimezoneChange = (event) => {
     this.setState({ timezone: event.target.value });
+    
   };
 
   
@@ -39,6 +40,7 @@ class Timezone extends React.Component {
 
   render() {
     const { result, date } = this.state;
+    console.log(result);
     return (
       <div>
         <div className="row example-config">

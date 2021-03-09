@@ -1,5 +1,7 @@
 //this is going to store Firebase realtime database API code
-import { db } from "./firebase";
+import firebase from "firebase/app";
+import React, { useContext, useState, useEffect } from "react";
+
 
 //##########3 user API
 
@@ -10,16 +12,30 @@ import { db } from "./firebase";
 //     email,
 //   });
 
-export function doCreateUser(userId, email, timezone) {
-  return db.ref("users/" + userId).set({
-      email,
-    timezone
-  });
-}
+// export function doCreateUser(userId, email, username) {
+//   return db.ref("users/" + userId).set({
+//       email,
+//       username
+//   });
+// }
 
-//returns all users from firebase realtime db
-export const onceGetUsers = () => db.ref("users").once("value");
+// //returns all users from firebase realtime db
+// export const onceGetUsers = () => db.ref("users").once("value");
 
-export const doGetAnUnser = (uid) => db.ref(`users/${uid}`).once("value");
+// export const doGetAnUnser = (uid) => db.ref(`users/${uid}`).once("value");
 
 // other APIs could come below
+export default function displayName(displayName) {
+  const user = firebase.auth().currentUser;
+
+  user
+    .updateProfile({
+      displayName: displayName,
+    })
+    .then(function () {
+      // Update successful.
+    })
+    .catch(function (error) {
+      // An error happened.
+    });
+}
