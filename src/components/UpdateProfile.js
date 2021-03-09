@@ -7,7 +7,8 @@ export default function UpdateProfile() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { currentUser, updatePassword, updateEmail } = useAuth()
+  const timezoneConRef = useRef()
+  const { currentUser, updatePassword, updateEmail,updateTimezone } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -28,6 +29,9 @@ export default function UpdateProfile() {
     }
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value))
+    }
+    if (timezoneConRef.current.value) {
+      promises.push(updateTimezone(updateTimezone.current.value))
     }
 
     Promise.all(promises)
@@ -74,6 +78,14 @@ export default function UpdateProfile() {
                 placeholder="Leave blank to keep the same"
               />
             </Form.Group>
+            {/* <Form.Group id="timezone">
+              <Form.Label>Change Timezone</Form.Label>
+              <Form.Control
+                type=""
+                ref={timezoneConRef}
+                placeholder="Time zone"
+              />
+            </Form.Group> */}
             <Button disabled={loading} className="w-100" type="submit">
               Update
             </Button>

@@ -1,70 +1,82 @@
-import React, { useContext, useState, useEffect } from "react"
-import { auth } from "../firebase"
+import React, { useContext, useState, useEffect } from "react";
+import { auth, db } from "../firebase";
+import {doCreateUser} from "../db"
 
-const AuthContext = React.createContext()
+
+const AuthContext = React.createContext();
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
-  function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+  function signup(email, password,timezone) {
+
+    return auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(function doCreateUser(authUser) {
+        doCreateUser(authUser.user.uid, email, timezone);
+      });
   }
+
+  // function doCreateUser(email, timezone) {
+  //   const id = auth.UserCredential.user.uid;
+  //   return db.ref(`users/${id}`, email, timezone).set({ email, timezone });
+  // }
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+    return auth.signInWithEmailAndPassword(email, password);
   }
+  
 
-  function signInWithPopup(provider){
-    return auth.signInWithPopup(provider)
+  function signInWithPopup(provider) {
+    return auth.signInWithPopup(provider);
   }
 
   function logout() {
-    return auth.signOut()
+    return auth.signOut();
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return auth.sendPasswordResetEmail(email);
   }
 
   function updateEmail(email) {
-    return currentUser.updateEmail(email)
+    return currentUser.updateEmail(email);
   }
 
   function updatePassword(password) {
-    return currentUser.updatePassword(password)
+    return currentUser.updatePassword(password);
   }
 
-
-
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user)
-      setLoading(false)
-    })
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
   const value = {
     currentUser,
     login,
     signInWithPopup,
     signup,
+    doCreateUser,
+   
     logout,
     resetPassword,
     updateEmail,
     updatePassword,
-    
-  }
+  };
 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
+  );
 }
