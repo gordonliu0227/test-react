@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
     //   doCreateUser(authUser.user.uid, email, timezone);
     // });
   }
-  
+
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
   }

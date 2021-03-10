@@ -25,12 +25,12 @@ import React, { useContext, useState, useEffect } from "react";
 // export const doGetAnUnser = (uid) => db.ref(`users/${uid}`).once("value");
 
 // other APIs could come below
-export default function displayName(displayName) {
+export default function selecttimezone(timezone) {
   const user = firebase.auth().currentUser;
 
   user
     .updateProfile({
-      displayName: displayName,
+      displayName: timezone,
     })
     .then(function () {
       // Update successful.
@@ -39,3 +39,4 @@ export default function displayName(displayName) {
       // An error happened.
     });
 }
+

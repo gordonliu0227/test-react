@@ -3,10 +3,9 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import firebase, { googleProvider } from "../firebase";
-import displayName from "../db"
+import displayName from "../db";
 
-import Timezone from "./Timezone";
-
+import SelectTimezone from "./timezoneselect";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -37,11 +36,8 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value)
-      displayName(timezoneConRef.current.value)
-      
-      console.log(firebase.auth().currentUser.uid);
-      
+      await signup(emailRef.current.value, passwordRef.current.value);
+      displayName(timezoneConRef.current.value);
 
       history.push("/");
     } catch {
@@ -79,9 +75,10 @@ export default function Signup() {
                 placeholder="Time zone"
                 required
               />
+               <SelectTimezone />
             </Form.Group>
+            
 
-            <Timezone />
             <Button disabled={loading} className="w-100" type="submit">
               Sign Up
             </Button>
