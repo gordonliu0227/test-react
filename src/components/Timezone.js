@@ -1,6 +1,8 @@
 import React from "react";
 import { timezoneNames, ZonedDate } from "@progress/kendo-date-math";
 import "@progress/kendo-date-math/tz/all";
+import firebase from "firebase/app";
+import selecttimezone from "../db";
 
 const timezones = timezoneNames()
   .filter((l) => l.indexOf("/") > -1)
@@ -11,7 +13,7 @@ class Timezone extends React.Component {
   state = {
     timezone: "Europe/Sofia",
     date: null,
-    result: null
+    result: null,
   };
 
   componentDidMount() {
@@ -26,21 +28,31 @@ class Timezone extends React.Component {
   tick = () => {
     const date = new Date();
     const result = ZonedDate.fromLocalDate(date, this.state.timezone);
+
     this.setState({ date, result });
   };
 
   handleTimezoneChange = (event) => {
-    this.setState({ timezone: event.target.value });
-    
+    const timeSelect = event.target.value;
+    this.setState({ timezone: timeSelect });
+    console.log(event.target.value);
+    // selecttimezone(timeSelect)
+
+
+    // const user = firebase.auth().currentUser;
+    // console.log(firebase);
+    // user
+    //   .updateProfile({
+    //     displayName: event.target.value,
+    //   })
+
   };
-
-  
-
- 
 
   render() {
     const { result, date } = this.state;
-    // console.log(result);
+   
+
+    // [ZonedDate.cachedUTCDate]
     return (
       <div>
         <div className="row example-config">

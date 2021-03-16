@@ -1,3 +1,4 @@
+import { func } from "prop-types";
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../firebase";
 
@@ -10,6 +11,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [timeSelect, settimeSelect]= useState();
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -17,7 +19,7 @@ export function AuthProvider({ children }) {
     //   doCreateUser(authUser.user.uid, email, timezone);
     // });
   }
-
+  
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
   }
@@ -60,6 +62,7 @@ export function AuthProvider({ children }) {
     resetPassword,
     updateEmail,
     updatePassword,
+    timeSelect
   };
 
   return (
